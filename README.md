@@ -18,6 +18,25 @@ ActiveSyncBruter is a penetration testing tool designed to enumerate and brute-f
 - **Optional Phase 2 Skipping:**  
   - Use the `-SkipFinal` switch in File Mode to run only Phase 1 checks, saving time when testing large lists.
 
+## Command Types (CmdType)
+
+Each command type is implemented as a minimal WBXML payload. The choice of which command to use depends on the environment and what behavior you wish to observe. ActiveSyncBruter was initially built with the Ping command in mind because its inherent delay can serve as an indicator of valid credentials, but the tool is flexible enough to support other commands as needed.
+
+ActiveSyncBruter currently supports three ActiveSync command types:
+
+- **Ping:**
+The default command, Ping, is implemented as a minimal WBXML request. Its design in the ActiveSync protocol is to keep a connection open for a specified heartbeat interval (the payload’s 7th byte is set to 0x0A, representing 10 seconds).
+A valid credential on a Ping command causes the server to wait for the heartbeat, leading to a delayed (or even timeout) response. This behavior is used in the quick-check phase: if a credential causes a long response time or timeout, it is flagged as potentially valid.
+
+- **Options:**
+The Options command returns server capabilities and configuration.
+Although the minimal Options payload is implemented here, some environments might require a more fully formed payload. Options can be used when you need to quickly verify that the endpoint is responsive and to potentially gather configuration details.
+
+- **FolderSync:**
+The FolderSync command is implemented as a minimal request, typically with a sync key of "0" (used for new devices).
+FolderSync returns a list of folders (such as Inbox, Calendar, etc.) and normally responds quickly. It can be used as an alternative method for checking credential validity when a Ping response might be affected by long heartbeat intervals.
+
+
 ## Requirements
 
 - PowerShell 5.0 or later (Windows PowerShell or PowerShell Core)
