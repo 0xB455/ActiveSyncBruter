@@ -1,6 +1,7 @@
 # ActiveSyncBruter
 
 ActiveSyncBruter is a penetration testing tool designed to enumerate and brute-force credentials against Microsoft Exchange ActiveSync endpoints. It supports both single-credential checks and bulk testing from a file. The tool employs a two-phase approach to quickly filter out invalid credentials and then re‑verify potential valid candidates.
+It was born out of the need 
 
 ## Features
 
@@ -113,10 +114,6 @@ In Single Mode, supply a username using the `-Username` switch. You can also opt
 #### Single Mode Workflow
 
 For a single credential, the tool performs one check (using the final timeout) and reports the result.
-
-## Disclaimer
-
-**ActiveSyncBruter** is intended for authorized penetration testing and security assessment only. Use this tool only on systems for which you have explicit permission to test. The author assumes no liability for misuse or damage resulting from the use of this tool.
 
 ## License
 
